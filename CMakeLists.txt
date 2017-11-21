@@ -15,8 +15,6 @@ option(ENABLE_STATIC "Build static library." ON)
 option(ENABLE_STRICT "Build with strict compile options." YES)
 option(ENABLE_TESTS  "Enable compilation of tests." YES)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-
 if(NOT CPACK_GENERATOR AND NOT CMAKE_INSTALL_RPATH AND CMAKE_INSTALL_PREFIX)
 	set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_FULL_LIBDIR})
 	message(STATUS "Setting install rpath to ${CMAKE_INSTALL_RPATH}")
@@ -36,7 +34,6 @@ include_directories(
 set(STRICT_OPTIONS_CPP )
 set(STRICT_OPTIONS_C )
 set(STRICT_OPTIONS_CXX )
-set(STRICT_OPTIONS_OBJC )
 if(MSVC)
 	if(ENABLE_STRICT)
 		set(STRICT_OPTIONS_CPP "${STRICT_OPTIONS_CPP} /WX")
@@ -57,8 +54,8 @@ else()
 	endif()
 endif()
 
-set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} ${STRICT_OPTIONS_C})
-set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} ${STRICT_OPTIONS_CXX})
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${STRICT_OPTIONS_C}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${STRICT_OPTIONS_CXX}")
 
 add_subdirectory(src)
 
@@ -69,19 +66,19 @@ endif()
 
 include(CMakePackageConfigHelpers)
 export(EXPORT ${EXPORT_TARGETS_NAME}Targets
-	FILE "${CMAKE_CURRENT_BINARY_DIR}/decafTargets.cmake"
+	FILE "${CMAKE_CURRENT_BINARY_DIR}/DecafTargets.cmake"
 )
-configure_file(cmake/decafConfig.cmake.in
-	"${CMAKE_CURRENT_BINARY_DIR}/decafConfig.cmake"
+configure_file(cmake/DecafConfig.cmake.in
+	"${CMAKE_CURRENT_BINARY_DIR}/DecafConfig.cmake"
 	@ONLY
 )
 set(ConfigPackageLocation share/decaf/cmake)
 install(EXPORT ${EXPORT_TARGETS_NAME}Targets
-	FILE decafTargets.cmake
+	FILE DecafTargets.cmake
 	DESTINATION ${ConfigPackageLocation}
 )
 install(FILES
-	"${CMAKE_CURRENT_BINARY_DIR}/decafConfig.cmake"
+	"${CMAKE_CURRENT_BINARY_DIR}/DecafConfig.cmake"
 	DESTINATION ${ConfigPackageLocation}
 )
 
