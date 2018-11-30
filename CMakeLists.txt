@@ -15,7 +15,7 @@ find_package( PythonInterp 2.7 REQUIRED )
 option(ENABLE_SHARED "Build shared library." ON)
 option(ENABLE_STATIC "Build static library." ON)
 option(ENABLE_STRICT "Build with strict compile options." YES)
-option(ENABLE_TESTS  "Enable compilation of tests." YES)
+option(ENABLE_TESTS  "Enable compilation of tests." OFF)
 option(GENERATED_SOURCE_PATH "Where the generated source code is stored, default in the building tree" OFF)
 
 if (GENERATED_SOURCE_PATH)
