@@ -95,11 +95,20 @@ typedef int64_t decaf_dsword_t;     /**< Signed double-word size for internal co
     
 /* MSCV compiler doesn't like the trick to have -1 assigned to an unsigned int to
  * set it to all ones, so do it openly */
-/** DECAF_TRUE = all ones so that DECAF_TRUE & x = x */
 #if DECAF_WORD_BITS == 64
+/** DECAF_TRUE = all ones so that DECAF_TRUE & x = x */
 static const decaf_bool_t DECAF_TRUE = (decaf_bool_t)0xFFFFFFFFFFFFFFFF;
+/** DECAF_WORD_ALL_SET : all ones */
+static const decaf_word_t DECAF_WORD_ALL_SET = (decaf_word_t)0xFFFFFFFFFFFFFFFF;
+/** DECAF_WORD_ALL_UNSET : all zeros */
+static const decaf_word_t DECAF_WORD_ALL_UNSET = (decaf_word_t)0x0;
 #elif DECAF_WORD_BITS == 32         /**< The number of bits in a word */
+/** DECAF_TRUE = all ones so that DECAF_TRUE & x = x */
 static const decaf_bool_t DECAF_TRUE = (decaf_bool_t)0xFFFFFFFF;
+/** DECAF_WORD_ALL_SET : all ones */
+static const decaf_word_t DECAF_WORD_ALL_SET = (decaf_word_t)0xFFFFFFFF;
+/** DECAF_WORD_ALL_UNSET : all zeros */
+static const decaf_word_t DECAF_WORD_ALL_UNSET = (decaf_word_t)0x0;
 #else
 #error "Only supporting DECAF_WORD_BITS = 32 or 64 for now"
 #endif
