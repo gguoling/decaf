@@ -5,6 +5,10 @@
 #
 ############################################################################
 
+if(MSVC)
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif()
+
 set(DECAF_HEADER_FILES
 	include/constant_time.h
 	include/field.h
