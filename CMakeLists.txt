@@ -23,7 +23,7 @@ if (GENERATED_SOURCE_PATH)
 else()
 	set(GSOURCE_PATH ${PROJECT_BINARY_DIR}/src/GENERATED)
 endif()
-message("Generated source code will be in ${GSOURCE_PATH}")
+message("Generated source code in ${GSOURCE_PATH}")
 
 if(NOT CPACK_GENERATOR AND NOT CMAKE_INSTALL_RPATH AND CMAKE_INSTALL_PREFIX)
 	set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_FULL_LIBDIR})
@@ -50,17 +50,16 @@ if(MSVC)
 	endif()
 else()
 	set(STRICT_OPTIONS_CXX "${STRICT_OPTIONS_CXX} -std=c++11 -O2")
-	set(STRICT_OPTIONS_CPP "${STRICT_OPTIONS_CPP} -Wall -Wuninitialized -Wno-deprecated-declarations -Wno-missing-field-initializers ")
-	set(STRICT_OPTIONS_C "${STRICT_OPTIONS_C} -std=c99 -O2 -Wstrict-prototypes -Wno-error=strict-prototypes -fvisibility=hidden ")
+	set(STRICT_OPTIONS_CPP "${STRICT_OPTIONS_CPP} -Wall -Wuninitialized -Wno-deprecated-declarations -Wno-missing-field-initializers")
+	set(STRICT_OPTIONS_C "${STRICT_OPTIONS_C} -std=c99 -O2 -Wstrict-prototypes -Wno-error=strict-prototypes -fvisibility=hidden")
 	if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
-		set(STRICT_OPTIONS_CPP "${STRICT_OPTIONS_CPP} -Qunused-arguments -Wno-array-bounds ")
+		set(STRICT_OPTIONS_CPP "${STRICT_OPTIONS_CPP} -Qunused-arguments -Wno-array-bounds")
 	endif()
 	if(APPLE)
-		set(STRICT_OPTIONS_CPP "${STRICT_OPTIONS_CPP} -Wno-error=unknown-warning-option -Qunused-arguments -Wno-tautological-compare -Wno-unused-function -Wno-array-bounds ")
-		set(STRICT_OPTIONS_CXX "${STRICT_OPTIONS_CXX} -stdlib=libc++ ")
+		set(STRICT_OPTIONS_CPP "${STRICT_OPTIONS_CPP} -Wno-error=unknown-warning-option -Qunused-arguments -Wno-tautological-compare -Wno-unused-function -Wno-array-bounds")
 	endif()
 	if(ENABLE_STRICT)
-		set(STRICT_OPTIONS_CPP "${STRICT_OPTIONS_CPP} -Werror -Wextra -Wno-unused-parameter -fno-strict-aliasing ")
+		set(STRICT_OPTIONS_CPP "${STRICT_OPTIONS_CPP} -Werror -Wextra -Wno-unused-parameter -fno-strict-aliasing")
 	endif()
 endif()
 
@@ -75,14 +74,16 @@ if(ENABLE_TESTS)
 endif()
 
 include(CMakePackageConfigHelpers)
+set(ConfigPackageLocation share/decaf/cmake)
 export(EXPORT ${EXPORT_TARGETS_NAME}Targets
 	FILE "${CMAKE_CURRENT_BINARY_DIR}/DecafTargets.cmake"
 )
-configure_file(cmake/DecafConfig.cmake.in
+configure_package_config_file(cmake/DecafConfig.cmake.in
 	"${CMAKE_CURRENT_BINARY_DIR}/DecafConfig.cmake"
-	@ONLY
+	INSTALL_DESTINATION ${ConfigPackageLocation}
+	NO_SET_AND_CHECK_MACRO
 )
-set(ConfigPackageLocation share/decaf/cmake)
+
 install(EXPORT ${EXPORT_TARGETS_NAME}Targets
 	FILE DecafTargets.cmake
 	DESTINATION ${ConfigPackageLocation}
@@ -115,3 +116,4 @@ set(CPACK_SOURCE_IGNORE_FILES
 )
 
 include(CPack)
+>>>>>>> b819ca6... Cmake config and dependencies rework
