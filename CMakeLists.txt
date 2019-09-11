@@ -110,10 +110,9 @@ set(CPACK_PACKAGE_NAME "decaf")
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 set(CPACK_SOURCE_GENERATOR "TGZ")
 set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
-set(CPACK_SOURCE_IGNORE_FILES
+set(CPACK_SOURCE_IGnore_FILES
         "^${CMAKE_BINARY_DIR}"
         "/\\\\..+"
 )
 
 include(CPack)
->>>>>>> b819ca6... Cmake config and dependencies rework
